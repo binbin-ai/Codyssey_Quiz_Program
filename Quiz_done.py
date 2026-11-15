@@ -5,23 +5,55 @@ class Quiz:
         self.question = question
         self.choices = choices
         self.answer = answer
+
+    def show_quiz(self):
+        print("\n-----------------------\n")
+                        
+        # 문제 출력
+        print(self.question)
+
+    def show_select(self):
+        # 선택지 출력
+        for i in range(0, len(self.choices)):
+            print(f"{i+1}. {self.choices[i]}")
+
+    # 정답 확인
+    def check_answer(self):
         
-    def check_answer(self, user_answer):
-        # 정답 확인 로직
-        pass
-        
-    def to_dict(self):
-        # JSON 저장용 딕셔너리 반환
-        pass
+        # 사용자 입력값 검증
+        while True:
+            try:
+                answer = int(input("정답 입력 : ").strip())
+
+                if answer == self.answer:
+                    print("✅ 정답입니다!")
+                    return 1
+                elif answer != self.answer and 1 <= answer <= 4:
+                    print("❎ 오답입니다ㅜ")
+                    return 0
+                else:
+                    print("잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.\n")
+            except KeyboardInterrupt:
+                print("\n프로그램을 안전하게 종료합니다.")
+                exit()
+            except EOFError:
+                print("\n입력 스트림이 끊겨 프로그램을 안전하게 종료합니다.")
+                exit()
+            except ValueError:
+                print("잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.\n")
 
 class QuizGame:
     def __init__(self):
-        self.quizzes = []
         self.best_score = 0
-        self.load_data(1) # 시작할 때 데이터 불러오기/        
+        self.load_data(1) # 시작할 때 데이터 불러오기/      
 
     # 메뉴 출력 및 분기 로직
     def run(self):
+        data = self.load_data(0)
+        p_list = data["quizzes"]
+        best = data["best_score"]
+
+        print(f"📂 저장된 데이터를 불러왔습니다. (퀴즈 {len(p_list)}개, 최고점수 {best}점)")
         
         while True:
 
@@ -45,7 +77,7 @@ class QuizGame:
                 elif usr_num == 2:
                     self.add_quiz()
                 elif usr_num == 3:
-                    self.quiz_lsit()
+                    self.quiz_list()
                 elif usr_num == 4:
                     self.show_best_score()
                 elif usr_num == 5:
@@ -53,7 +85,13 @@ class QuizGame:
                     break
                 else:
                     print("잘못된 입력입니다. 1-5 사이의 숫자를 입력하세요.\n")
-            except:
+            except KeyboardInterrupt:
+                print("\n프로그램을 안전하게 종료합니다.")
+                exit()
+            except EOFError:
+                print("\n입력 스트림이 끊겨 프로그램을 안전하게 종료합니다.")
+                exit()
+            except ValueError:
                 print("잘못된 입력입니다. 1-5 사이의 숫자를 입력하세요.\n")
 
     # 퀴즈 풀기 로직
@@ -69,35 +107,12 @@ class QuizGame:
         # 퀴즈 시작
         print(f"\n\n📝 퀴즈를 시작합니다! (총 {len(p_list)}문제)")
 
+        # Quiz 클래스 인스턴스 생성 후 각 메서드를 사용해 개별 퀴즈 표현
         for p_dic in p_list:
-            # 정답 입력
-            while True:
-                print("\n-----------------------\n")
-                
-                # 문제 출력
-                print(p_dic["question"])
-    
-                # 선택지 출력
-                for i in range(0, len(p_dic["choices"])):
-                    print(f"{i+1}. {p_dic["choices"][i]}")
-
-                # 사용자 입력값 검증
-                try:
-                    answer = int(input("정답 입력 : ").strip())
-
-                    if answer == p_dic["answer"]:
-                        print("✅ 정답입니다!")
-                        score += 1
-                        break
-                    elif answer != p_dic["answer"] and 1 <= answer <= 4:
-                        print("❎ 오답입니다ㅜ")
-                        break
-                    else:
-                        print("잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.\n")
-                except:
-                    print("잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.\n")
-
-                
+            Quiz_Obj = Quiz(p_dic["question"], p_dic["choices"], p_dic["answer"])
+            Quiz_Obj.show_quiz()
+            Quiz_Obj.show_select()
+            score += Quiz_Obj.check_answer()
 
         # 최종 점수 산출
         if score == 0:
@@ -130,9 +145,13 @@ class QuizGame:
                 if question == "":
                     print("문제는 공백일 수 없습니다.\n")
                 else:
-                    break     
-            except:
-                print("\nCtrl+C는 동작하지 않습니다.\n")
+                    break
+            except KeyboardInterrupt:
+                print("프로그램을 안전하게 종료합니다.")
+                exit()
+            except EOFError:
+                print("\n입력 스트림이 끊겨 프로그램을 안전하게 종료합니다.")
+                exit()
 
         # 선택지 입력
         for i in range(0, 4):
@@ -146,8 +165,12 @@ class QuizGame:
                     else:
                         choices.append(select)
                         break
-                except:
-                    print("\nCtrl+C는 동작하지 않습니다.\n")
+                except KeyboardInterrupt:
+                    print("프로그램을 안전하게 종료합니다.")
+                    exit()
+                except EOFError:
+                    print("\n입력 스트림이 끊겨 프로그램을 안전하게 종료합니다.")
+                    exit()
 
         # 정답 입력
         while True:
@@ -159,7 +182,13 @@ class QuizGame:
                     break
                 else:
                     print("잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.\n")
-            except:
+            except KeyboardInterrupt:
+                print("프로그램을 안전하게 종료합니다.")
+                exit()
+            except EOFError:
+                print("\n입력 스트림이 끊겨 프로그램을 안전하게 종료합니다.")
+                exit()
+            except ValueError:
                 print("잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.\n")
 
         self.save_data(question, choices, correct)
@@ -167,7 +196,7 @@ class QuizGame:
         print("✅ 퀴즈가 추가되었습니다!")
 
     # 퀴즈 리스트 로직
-    def quiz_lsit(self):
+    def quiz_list(self):
 
          # 퀴즈 불러오기
         problem_list = self.load_data(0)
@@ -197,9 +226,16 @@ class QuizGame:
                 with open("state.json", "r", encoding="utf-8") as f:
                     check = json.load(f)
                     print("JSON 파일에 아무런 문제도 발견되지 않았습니다.")
+
+                    if len(check["quizzes"]) == 0:
+                        print("등록된 퀴즈가 존재하지않아 퀴즈 추가 분기로 이동합니다.")
+                        self.add_quiz()
+
+                    return check 
             except FileNotFoundError:
                 print("JSON 파일이 존재하지 않아 기본값으로 초기화합니다.")
 
+                # 초기화 로직
                 with open("basic_state.json", "r", encoding="utf-8") as f:
                     basic = json.load(f)
                 with open("state.json", "w", encoding="utf-8") as f:
@@ -207,14 +243,15 @@ class QuizGame:
             except json.JSONDecodeError:
                 print("JSON 파일의 문법이 손상되었습니다. 기본값으로 초기화합니다.")
 
+                # 초기화 로직
                 with open("basic_state.json", "r", encoding="utf-8") as f:
                     basic = json.load(f)
                 with open("state.json", "w", encoding="utf-8") as f:
                     json.dump(basic, f, ensure_ascii=False, indent=4)
 
+            # 초기화된 json 반환
             with open("state.json", "r", encoding="utf-8") as f:
-                            file_data = json.load(f)
-            
+                file_data = json.load(f)
             return file_data
         else:
             with open("state.json", "r", encoding="utf-8") as f:
