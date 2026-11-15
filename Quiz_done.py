@@ -18,7 +18,7 @@ class QuizGame:
     def __init__(self):
         self.quizzes = []
         self.best_score = 0
-        self.load_data() # 시작할 때 데이터 불러오기
+        self.load_data(1) # 시작할 때 데이터 불러오기/        
 
     # 메뉴 출력 및 분기 로직
     def run(self):
@@ -60,7 +60,7 @@ class QuizGame:
     def play_quiz(self):
         
         # 퀴즈 불러오기
-        problem_list = self.load_data()
+        problem_list = self.load_data(0)
         p_list = problem_list["quizzes"] # 이렇게하면 리스트 내부 딕셔너리 형태
         self.best_score = problem_list["best_score"] # 기존 최고 점수 가져오기
 
@@ -170,7 +170,7 @@ class QuizGame:
     def quiz_lsit(self):
 
          # 퀴즈 불러오기
-        problem_list = self.load_data()
+        problem_list = self.load_data(0)
         p_list = problem_list["quizzes"] # 이렇게하면 리스트 내부 딕셔너리 형태
         
         print(f"📋 등록된 퀴즈 목록 (총 {len(p_list)}개)")
@@ -182,20 +182,45 @@ class QuizGame:
     
     # 최고 점수 확인 로직
     def show_best_score(self):
-        
-        show_best_score = self.load_data()["best_score"] # 기존 최고 점수
-        show_question_number = self.load_data()["question_number"] # 최고 점수였을 때 문제 수
-        show_correct_number = self.load_data()["correct_number"] # 최고 점수였을 때 맞춘 수
+        show_best_score = self.load_data(0)["best_score"] # 기존 최고 점수
+        show_question_number = self.load_data(0)["question_number"] # 최고 점수였을 때 문제 수
+        show_correct_number = self.load_data(0)["correct_number"] # 최고 점수였을 때 맞춘 수
 
         print(f"\n🏆 최고 점수: {show_best_score}점 ({show_question_number}문제 중 {show_correct_number}문제 정답)\n")
 
     # state.json에 저장된 데이터 불러오기 로직
-    def load_data(self):
+    def load_data(self, *args):
 
-        with open("state.json", "r", encoding="utf-8") as f:
-            file_data = json.load(f)
+        if args[0] == 1:
+            # state.json 유/무 체크 및 파일 손상 여부 체크
+            try:
+                with open("state.json", "r", encoding="utf-8") as f:
+                    check = json.load(f)
+                    print("JSON 파일에 아무런 문제도 발견되지 않았습니다.")
+            except FileNotFoundError:
+                print("JSON 파일이 존재하지 않아 기본값으로 초기화합니다.")
 
-        return file_data
+                with open("basic_state.json", "r", encoding="utf-8") as f:
+                    basic = json.load(f)
+                with open("state.json", "w", encoding="utf-8") as f:
+                    json.dump(basic, f, ensure_ascii=False, indent=4)
+            except json.JSONDecodeError:
+                print("JSON 파일의 문법이 손상되었습니다. 기본값으로 초기화합니다.")
+
+                with open("basic_state.json", "r", encoding="utf-8") as f:
+                    basic = json.load(f)
+                with open("state.json", "w", encoding="utf-8") as f:
+                    json.dump(basic, f, ensure_ascii=False, indent=4)
+
+            with open("state.json", "r", encoding="utf-8") as f:
+                            file_data = json.load(f)
+            
+            return file_data
+        else:
+            with open("state.json", "r", encoding="utf-8") as f:
+                file_data = json.load(f)
+
+            return file_data
         
 
     # state.json에 저장 로직
