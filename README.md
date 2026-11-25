@@ -84,7 +84,7 @@ python Quiz_Done.py
 
 ---
 
-## 🛡️ 입력 검증 및 예외 처리
+## 입력 검증 및 예외 처리
 
 사용자의 실수나 예기치 않은 환경 오류로 프로그램이 비정상 종료되지 않도록 다음과 같은 방어 로직을 구현했습니다.
 
@@ -99,7 +99,7 @@ python Quiz_Done.py
 
 ---
 
-## 🧩 코드 구조 (클래스 설계)
+## 코드 구조 (클래스 설계)
 
 기능별로 책임을 명확히 나누기 위해 `Quiz`와 `QuizGame` 두 개의 클래스를 정의했습니다.
 
@@ -125,7 +125,7 @@ python Quiz_Done.py
 
 ---
 
-## 📂 파일 구조
+## 파일 구조
 
 ```text
 Codyssey_Quiz_Program/
@@ -144,7 +144,7 @@ Codyssey_Quiz_Program/
 
 ---
 
-## 💾 데이터 파일 설명 (`state.json`)
+## 데이터 파일 설명 (`state.json`)
 
 - **파일 경로:** 프로젝트 루트 디렉터리 (`./state.json`)
 - **인코딩 및 포맷:** `UTF-8` (`ensure_ascii=False`, `indent=4` 적용으로 한글 가독성 유지)
@@ -186,7 +186,7 @@ Codyssey_Quiz_Program/
 
 ---
 
-## 🖥️ 실행 화면 예시
+## 실행 화면 예시
 
 ### 콘솔 출력 예시
 
@@ -207,10 +207,14 @@ JSON 파일에 아무런 문제도 발견되지 않았습니다.
 
 ### 실행 스크린샷
 
+| 환경 | git log --oneline --graph |
+| :---: | :---: |
+| ![환경](./screenshots/env.png) | ![git log](./screenshots/git_log.png) |
+
 | 메인 메뉴 | 퀴즈 풀기 |
 | :---: | :---: |
-| ![메인 메뉴](docs/screenshots/menu.png) | ![퀴즈 풀기](docs/screenshots/play.png) |
+| ![메인 메뉴](./screenshots/menu.png) | ![퀴즈 풀기](./screenshots/play1.png) | ![퀴즈 풀기](./screenshots/play2.png) |
 
-| 퀴즈 추가 | 점수 확인 |
+| 퀴즈 추가 | 퀴즈 목록 | 점수 확인 |
 | :---: | :---: |
-| ![퀴즈 추가](docs/screenshots/add_quiz.png) | ![점수 확인](docs/screenshots/score.png) |
+| ![퀴즈 추가](./screenshots/add_quiz.png) | ![퀴즈 목록](./screenshots/list.png) | ![점수 확인](./screenshots/score.png) |
