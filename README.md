@@ -213,8 +213,12 @@ JSON 파일에 아무런 문제도 발견되지 않았습니다.
 
 | 메인 메뉴 | 퀴즈 풀기 |
 | :---: | :---: |
-| ![메인 메뉴](./screenshots/menu.png) | ![퀴즈 풀기](./screenshots/play1.png) | ![퀴즈 풀기](./screenshots/play2.png) |
+| ![메인 메뉴](./screenshots/menu.png) | ![퀴즈 풀기](./screenshots/play2.png) |
 
-| 퀴즈 추가 | 퀴즈 목록 | 점수 확인 |
+| 퀴즈 추가 | 퀴즈 목록 |
 | :---: | :---: |
-| ![퀴즈 추가](./screenshots/add_quiz.png) | ![퀴즈 목록](./screenshots/list.png) | ![점수 확인](./screenshots/score.png) |
+| ![퀴즈 추가](./screenshots/add_quiz.png) | ![퀴즈 목록](./screenshots/list.png) |
+
+| 점수 확인 |
+| :---: |
+| ![점수 확인](./screenshots/score.png) |
