@@ -206,7 +206,7 @@ class QuizGame:
         print("\n\n-----------------------")
 
         for i, (p_dic) in enumerate(p_list):
-            print(f"[{i+1}] {p_dic["question"]}")
+            print(f"[{i+1}] {p_dic['question']}")
         print("-----------------------\n\n")
     
     # 최고 점수 확인 로직
@@ -214,6 +214,10 @@ class QuizGame:
         show_best_score = self.load_data(0)["best_score"] # 기존 최고 점수
         show_question_number = self.load_data(0)["question_number"] # 최고 점수였을 때 문제 수
         show_correct_number = self.load_data(0)["correct_number"] # 최고 점수였을 때 맞춘 수
+
+        if show_question_number == 0:
+            print("아직 퀴즈를 풀지 않았습니다.")
+            return
 
         print(f"\n🏆 최고 점수: {show_best_score}점 ({show_question_number}문제 중 {show_correct_number}문제 정답)\n")
 
@@ -293,7 +297,7 @@ class QuizGame:
                 with open("state.json", "r", encoding="utf-8") as f:
                     file_data = json.load(f)
             except FileNotFoundError:
-                file_data = {"quizzes": [], "best_score": 0}
+                file_data = {"quizzes": [], "best_score": 0, "question_number": 0, "correct_number": 0}
 
             # json 데이터 내부 best_score 키에 해당하는 값에 최고점수 대입 
             file_data["best_score"] = args[0][0]
