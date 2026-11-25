@@ -1,0 +1,15 @@
+# Python 캐시 및 컴파일 파일
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 가상환경 폴더 (만약 만들 경우 대비)
+venv/
+.venv/
+
+# VS Code 개인 설정
+.vscode/
+
+# OS 자동 생성 시스템 파일
+Thumbs.db
+.DS_Store
