@@ -49,9 +49,19 @@
                 "VBR"
             ],
             "answer": 2
+        },
+        {
+            "question": "주 메모리에서 데이터가 자료형 또는 지정된 포맷의 크기를 넘어 다른 메모리 영역을 침범하는 현상은?",
+            "choices": [
+                "XSS",
+                "CORS",
+                "OverFlow",
+                "UAF"
+            ],
+            "answer": 3
         }
     ],
-    "best_score": 0,
-    "question_number": 0,
-    "correct_number": 0
+    "best_score": 20.0,
+    "question_number": 5,
+    "correct_number": 1
 }
